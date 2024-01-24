@@ -61,6 +61,7 @@ namespace lspd {
 
     inline static constexpr auto kLibArtName = "libart.so"_tstr;
     inline static constexpr auto kLibFwName = "libandroidfw.so"_tstr;
+    inline static constexpr auto kLibBinderName = "libbinder.so"_tstr;
 
     inline constexpr const char *BoolToString(bool b) {
         return b ? "true" : "false";
