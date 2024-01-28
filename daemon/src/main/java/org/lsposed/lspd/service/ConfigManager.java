@@ -766,6 +766,9 @@ public class ConfigManager {
                 setAccessMatrixAppId(appId, true);
             }
         });
+        if (managerUid != -1) {
+            setAccessMatrixAppId(managerUid, true);
+        }
     }
 
     // This is called when a new process created, use the cached result
