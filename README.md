@@ -1,6 +1,6 @@
 # LSPosed Framework
 
-[![Build](https://img.shields.io/github/actions/workflow/status/LSPosed/LSPosed/core.yml?branch=master&event=push&logo=github&label=Build)](https://github.com/LSPosed/LSPosed/actions/workflows/core.yml?query=event%3Apush+branch%3Amaster+is%3Acompleted) [![Crowdin](https://img.shields.io/badge/Localization-Crowdin-blueviolet?logo=Crowdin)](https://lsposed.crowdin.com/lsposed) [![Channel](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/LSPosed) [![Chat](https://img.shields.io/badge/Join-QQ%E9%A2%91%E9%81%93-red?logo=tencent-qq&logoColor=red)](https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&inviteCode=Xz9dJ&from=246610&biz=ka) [![Download](https://img.shields.io/github/v/release/LSPosed/LSPosed?color=orange&logoColor=orange&label=Download&logo=DocuSign)](https://github.com/re-zero001/LSPosed/releases/latest) [![Total](https://shields.io/github/downloads/LSPosed/LSPosed/total?logo=Bookmeter&label=Counts&logoColor=yellow&color=yellow)](https://github.com/LSPosed/LSPosed/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/re-zero001/LSPosed/core.yml?branch=master&event=push&logo=github&label=Build)](https://github.com/re-zero001/LSPosed/actions/workflows/core.yml?query=event%3Apush+branch%3Amaster+is%3Acompleted) [![Channel](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/LSPosed) [![Download](https://img.shields.io/github/v/release/LSPosed/LSPosed?color=orange&logoColor=orange&label=Download&logo=DocuSign)](https://github.com/re-zero001/LSPosed/releases/latest) [![Total](https://shields.io/github/downloads/LSPosed/LSPosed/total?logo=Bookmeter&label=Counts&logoColor=yellow&color=yellow)](https://github.com/LSPosed/LSPosed/releases)
 
 ## Introduction 
 
@@ -25,10 +25,13 @@ Android 8.1 ~ 15
 ## Download
 
 - For stable releases, please go to [Github Releases page](https://github.com/re-zero001/LSPosed/releases)
+- For canary build, please check [Github Actions](https://github.com/re-zero001/LSPosed/actions/workflows/core.yml?query=branch%3Adev)
 
 ## Get Help
 
-- Not support issues,because I don't know how to fix.
+**Only bug reports from **THE LATEST DEBUG BUILD** will be accepted.**
+- GitHub issues: [Issues](https://github.com/re-zero001/LSPosed/issues/)
+- (For Chinese speakers) 本项目只接受英语**标题**的issue。如果您不懂英语，请使用[翻译工具](https://www.deepl.com/zh/translator)
 
 ## For Developers
 
@@ -45,10 +48,6 @@ We use our own module repository. We welcome developers to submit modules to our
 - Telegram: [@LSPosed](https://t.me/s/LSPosed)
 
 Notice: These community groups don't accept any bug report, please use [Get help](#get-help) to report.
-
-## Translation Contributing
-
-You can contribute translation [here](https://lsposed.crowdin.com/lsposed).
 
 ## Credits 
 

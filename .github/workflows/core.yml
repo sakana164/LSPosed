@@ -1,0 +1,102 @@
+name: Core
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
+      CCACHE_BASEDIR: "${{ github.workspace }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Write key
+        if: ${{ ( github.event_name != 'pull_request' && github.ref == 'refs/heads/dev' ) || github.ref_type == 'tag' }}
+        run: |
+          if [ ! -z "${{ secrets.KEY_STORE }}" ]; then
+            echo androidStorePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> gradle.properties
+            echo androidKeyAlias='${{ secrets.ALIAS }}' >> gradle.properties
+            echo androidKeyPassword='${{ secrets.KEY_PASSWORD }}' >> gradle.properties
+            echo androidStoreFile='key.jks' >> gradle.properties
+            echo ${{ secrets.KEY_STORE }} | base64 --decode > key.jks
+          fi
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+            max-size: 2G
+            key: ${{ runner.os }}
+            restore-keys: ${{ runner.os }}
+            save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/dev' }}
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: 1.12.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.9.0
+
+      - name: Remove Android's cmake
+        shell: bash
+        run: rm -rf $ANDROID_HOME/cmake
+
+      - name: Build with Gradle
+        run: |
+          ./gradlew zipAll
+
+      - name: Prepare artifact
+        if: success()
+        id: prepareArtifact
+        run: |
+          zygiskReleaseName=`ls magisk-loader/release/LSPosed-v*-Irena-release.zip | awk -F '(/|.zip)' '{print $3}'` && echo "zygiskReleaseName=$zygiskReleaseName" >> $GITHUB_OUTPUT
+          zygiskDebugName=`ls magisk-loader/release/LSPosed-v*-Irena-debug.zip | awk -F '(/|.zip)' '{print $3}'` && echo "zygiskDebugName=$zygiskDebugName" >> $GITHUB_OUTPUT
+          unzip magisk-loader/release/LSPosed-v*-Irena-release.zip -d LSPosed-Irena-release
+          unzip magisk-loader/release/LSPosed-v*-Irena-debug.zip -d LSPosed-Irena-debug
+
+      - name: Upload zygisk release
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.prepareArtifact.outputs.zygiskReleaseName }}
+          path: "./LSPosed-Irena-release/*"
+
+      - name: Upload zygisk debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.prepareArtifact.outputs.zygiskDebugName }}
+          path: "./LSPosed-Irena-debug/*"
+
+      - name: Upload mappings
+        uses: actions/upload-artifact@v4
+        with:
+          name: mappings
+          path: |
+            magisk-loader/build/outputs/mapping
+            app/build/outputs/mapping
+
+      - name: Upload symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: symbols
+          path: build/symbols
