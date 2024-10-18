@@ -14,7 +14,7 @@ Android 8.1 ~ 15
 
 ## Install
 
-1. Install Magisk v27+
+1. Install Magisk v26+
 2. Install [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext/releases)
 > No need enable zygisk in magisk.
 3. [Download](#download) and install LSPosed in Magisk app

@@ -188,7 +188,7 @@ fun afterEval() = android.applicationVariants.forEach { variant ->
                 "versionCode" to verCode,
                 "authorList" to authors,
                 "updateJson" to "https://lsposed.github.io/LSPosed/release/${flavorLowered}.json",
-                "requirement" to "Requires Magisk 27.0+ and Zygisk enabled",
+                "requirement" to "Requires Magisk 26.0+ and Zygisk enabled",
             )
             filter<FixCrLfFilter>("eol" to FixCrLfFilter.CrLf.newInstance("lf"))
         }

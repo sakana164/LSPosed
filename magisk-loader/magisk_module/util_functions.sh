@@ -18,20 +18,14 @@
 # Copyright (C) 2021 LSPosed Contributors
 #
 
-check_version() {
- if [ "$BOOTMODE" ] && [ "$KSU" ]; then
-   if [ "$KSU_KERNEL_VER_CODE" -lt 11903 ];then
-     ui_print "*********************************************************"
-     ui_print "! Please install KernelSU v11903+"
-     abort    "*********************************************************"
-   fi
- elif [ "$BOOTMODE" ] && [ "$MAGISK_VER_CODE" ]; then
+check_magisk_version() {
+if [ "$BOOTMODE" ] && [ "$MAGISK_VER_CODE" ]; then
    ui_print "- Magisk version: $MAGISK_VER_CODE"
- else [ "$MAGISK_VER_CODE" -lt 27005 ];
+ else [ "$MAGISK_VER_CODE" -lt 26000 ];
      ui_print "*********************************************************"
-     ui_print "! Please install Magisk v27005+"
+     ui_print "! Please install Magisk v26000+"
      abort    "*********************************************************"
- fi
+fi
 }
 
 require_new_android() {
